@@ -1,0 +1,9 @@
+version: '2'
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: make build-cross
+    volumes:
+      - .:/go/src/terraform-diff
