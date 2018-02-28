@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/hashicorp/terraform/version"
+	"github.com/hashicorp/terraform/command/format"
 	"github.com/jessevdk/go-flags"
 	"os"
 	"runtime"
@@ -35,7 +36,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	diffJson, diffErr := json.MarshalIndent(plan.Diff, "", "\t")
+	// diffJson, diffErr := json.MarshalIndent(plan.Diff, "", "\t")
+	// if diffErr == nil {
+	// 	fmt.Print(string(diffJson))
+	// }
+
+	dispPlan := format.NewPlan(plan)
+	diffJson, diffErr := json.MarshalIndent(dispPlan, "", "\t")
 	if diffErr == nil {
 		fmt.Print(string(diffJson))
 	}
